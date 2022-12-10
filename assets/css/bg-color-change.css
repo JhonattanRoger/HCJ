@@ -1,0 +1,16 @@
+body {
+    background-color: #222F3E;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: #FFF;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
