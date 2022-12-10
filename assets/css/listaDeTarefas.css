@@ -80,3 +80,32 @@ main {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
 }
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+/* Outra forma de estilizar o icone é
+ criando uma classe para ele via JavaScript*/
+.task-item i {
+    background-color: #41b883;
+    color: #FFF;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+/* Utilities */
+.error {
+  border: 2px solid red !important;
+}
+
+.error::placeholder {
+  color: red;
+}
+
+.completed {
+    text-decoration: line-through red 3px;    
+}
