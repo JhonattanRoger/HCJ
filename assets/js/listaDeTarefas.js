@@ -29,7 +29,7 @@ const handleAddTask = () => {
   deleteItem.classList.add("fa-solid");
   deleteItem.classList.add("fa-trash");
   //Excluir tarefa
-  deleteItem.addEventListener("click", () => handleDeleteClick());
+  deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer, taskContent));
 
   taskItemContainer.appendChild(taskContent);
   taskItemContainer.appendChild(deleteItem);
@@ -40,15 +40,29 @@ const handleAddTask = () => {
 };
 
 const handleClick = (taskContent) => {
-    const tasks = tasksContainer.childNodes;
+  const tasks = tasksContainer.childNodes;
 
-    for (const task of tasks) {
-        // firstChild pega o primeiro filho que nesse caso é o parágrafo
-        if (task.firstChild.isSameNode(taskContent)) {
-            //Se já possuir a classe ele irá remover e caso contrário irá incluir
-            task.firstChild.classList.toggle("completed");
-        }        
+  for (const task of tasks) {
+    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
+    // firstChild pega o primeiro filho que nesse caso é o parágrafo
+    if (currentTaskIsBeingClicked) {
+      //Se já possuir a classe ele irá remover e caso contrário irá incluir
+      task.firstChild.classList.toggle("completed");
     }
+  }
+};
+
+const handleDeleteClick = (taskItemContainer, taskContent) => {
+  const tasks = tasksContainer.childNodes;
+
+  for (const task of tasks) {
+    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
+    //Verifica se o item é o mesmo que o usuário está clicando
+    if (currentTaskIsBeingClicked) { 
+      taskItemContainer.remove();
+    }
+  }
+  
 };
 
 const handleInputChange = () => {

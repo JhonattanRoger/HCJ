@@ -91,10 +91,14 @@ main {
 /* Outra forma de estilizar o icone é
  criando uma classe para ele via JavaScript*/
 .task-item i {
-    background-color: #41b883;
-    color: #FFF;
-    padding: 12px;
-    border-radius: 5px;
+  background-color: #41b883;
+  color: #fff;
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.task-item i:hover {
+  cursor: pointer;
 }
 
 /* Utilities */
@@ -107,5 +111,5 @@ main {
 }
 
 .completed {
-    text-decoration: line-through red 3px;    
+  text-decoration: line-through red 3px;
 }
