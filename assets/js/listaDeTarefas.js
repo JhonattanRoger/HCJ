@@ -29,7 +29,9 @@ const handleAddTask = () => {
   deleteItem.classList.add("fa-solid");
   deleteItem.classList.add("fa-trash");
   //Excluir tarefa
-  deleteItem.addEventListener("click", () => handleDeleteClick(taskItemContainer, taskContent));
+  deleteItem.addEventListener("click", () =>
+    handleDeleteClick(taskItemContainer, taskContent)
+  );
 
   taskItemContainer.appendChild(taskContent);
   taskItemContainer.appendChild(deleteItem);
@@ -37,6 +39,9 @@ const handleAddTask = () => {
 
   //Limpar o input
   inputElement.value = "";
+
+  // Atualizar local storage
+  updateLocalStorage();
 };
 
 const handleClick = (taskContent) => {
@@ -50,6 +55,8 @@ const handleClick = (taskContent) => {
       task.firstChild.classList.toggle("completed");
     }
   }
+  // Atualizar local storage
+  updateLocalStorage();
 };
 
 const handleDeleteClick = (taskItemContainer, taskContent) => {
@@ -58,11 +65,12 @@ const handleDeleteClick = (taskItemContainer, taskContent) => {
   for (const task of tasks) {
     const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
     //Verifica se o item é o mesmo que o usuário está clicando
-    if (currentTaskIsBeingClicked) { 
+    if (currentTaskIsBeingClicked) {
       taskItemContainer.remove();
     }
   }
-  
+  // Atualizar local storage
+  updateLocalStorage();
 };
 
 const handleInputChange = () => {
@@ -72,6 +80,60 @@ const handleInputChange = () => {
     return inputElement.classList.remove("error");
   }
 };
+
+// ------- LOCAL STORAGE -------
+
+// ATUALIZANDO LOCAL STORAGE - localStorage armazena apenas String
+const updateLocalStorage = () => {
+  const tasks = tasksContainer.childNodes;
+
+  const localStorageTasks = [...tasks].map((task) => {
+    const content = task.firstChild;
+    const isCompleted = content.classList.contains("completed");
+
+    return { description: content.innerText, isCompleted };
+  });
+
+  // localStorage é uma variável global
+  localStorage.setItem("tasks", JSON.stringify(localStorageTasks));
+};
+
+const refreshTasksUsingLocalStorage = () => {
+  // tasks é a key pra acessar os arquivos armazenados no Local Storage
+  const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+
+  // Para evitar problemas quando o local storage estiver vazio
+  if(!tasksFromLocalStorage) return;
+
+  for (const task of tasksFromLocalStorage) {
+    const taskItemContainer = document.createElement("div");
+    taskItemContainer.classList.add("task-item");
+
+    const taskContent = document.createElement("p");
+    // description vem do localStorage
+    taskContent.innerText = task.description;
+    if (task.isCompleted) {
+      taskContent.classList.add("completed");
+    }
+
+    taskContent.addEventListener("click", () => handleClick(taskContent));
+
+    const deleteItem = document.createElement("i");
+    deleteItem.classList.add("fa-solid");
+    deleteItem.classList.add("fa-trash");
+
+    deleteItem.addEventListener("click", () =>
+      handleDeleteClick(taskItemContainer, taskContent)
+    );
+
+    taskItemContainer.appendChild(taskContent);
+    taskItemContainer.appendChild(deleteItem);
+    tasksContainer.appendChild(taskItemContainer);
+  }
+};
+
+// Coletando itens do Local Storage
+refreshTasksUsingLocalStorage();
 
 addTaskButton.addEventListener("click", () => handleAddTask());
 inputElement.addEventListener("change", () => handleInputChange());
