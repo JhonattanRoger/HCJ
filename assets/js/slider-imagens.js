@@ -29,6 +29,11 @@ controls.forEach((control) => {
     // Remover a classe do item
     items.forEach((item) => item.classList.remove("current-item"));
 
+    // Solução para quando o smooth não funcionar no chrome
+    // open a new tab
+    // type "chrome://flags" and hit enter
+    // in search bar search for "smooth scrolling"
+    // enable it and reload
     items[currentItem].scrollIntoView({
         inline: "center",
         behavior : "smooth"
