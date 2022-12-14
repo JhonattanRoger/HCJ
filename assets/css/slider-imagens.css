@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    height: 8vh;
+}
+
+main {
+    height: 92vh;
+}
+
+.container {
+    position: relative;
+    padding: 15px;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.gallery-wrapper {
+    /* coloca a barra de rolagem na div e tira da páagina */
+    overflow-x: auto;
+}
+
+.gallery {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 15px;
+}
+
+.arrow-left,
+.arrow-right {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    font-size: 20px;
+    line-height: 250px;
+    width: 40px;
+    text-align: center;
+    color: #FFF;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(
+        to left,
+        transparent 0%,
+        black 200%        
+    );
+    opacity: .3;
+    transition: all 600ms ease-in-out;
+}
+
+.arrow-right  {
+    left: auto;
+    right: 0;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        black 200%        
+    );
+}
+
+.arrow-left:hover,
+.arrow-right:hover {
+    opacity: 1;
+}
+
+.item {
+    width: 250px;
+    height: 250px;
+    /* Para não diminuir */
+    flex-shrink: 0;
+    opacity: .5;
+    border: 5px solid #FFF;
+    transition: all 600ms ease-in-out;
+
+}
+
+.current-item {
+    opacity: 1;
+    border: 5px solid turquoise;
+    box-shadow: 0 0 10px turquoise;
+}
+
+/* Esconde a scrollbar no Chrome, Safari e Opera */
+.gallery-wrapper::-webkit-scrollbar {
+    display: none;
+}
+/* Esconde a scrollbar no IE, Edge e Firefox */
+.gallery-wrapper {
+    -ns-overflow-style: none; /* IE and Edge*/
+    scrollbar-width: none; /* Firefox */
+}
